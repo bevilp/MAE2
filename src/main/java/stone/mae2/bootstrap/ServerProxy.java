@@ -19,25 +19,26 @@ public class ServerProxy implements Proxy {
     MAE2Blocks.init(bus);
     MAE2Items.init(bus);
     MAE2Tags.init(bus);
+    MAE2Menus.init(bus);
 
     if (ModList.get().isLoaded("gtceu")) {
       GregTechIntegration.init(bus);
     }
 
     bus.addListener((FMLCommonSetupEvent event) -> {
-        GridServices.register(MultiP2PService.class, MultiP2PService.class);
-        MultiP2PTunnelAttunement.registerStockAttunements();
-      });
+      GridServices.register(MultiP2PService.class, MultiP2PService.class);
+      MultiP2PTunnelAttunement.registerStockAttunements();
+    });
 
     bus.addListener((GatherDataEvent event) -> {
-        DataGenerator gen = event.getGenerator();
-        DataGenerator.PackGenerator pack = gen.getVanillaPack(true);
+      DataGenerator gen = event.getGenerator();
+      DataGenerator.PackGenerator pack = gen.getVanillaPack(true);
 
-        pack.addProvider(MAE2RecipeProvider::new);
-      });
+      pack.addProvider(MAE2RecipeProvider::new);
+    });
 
     PartTooltips
-      .addServerData(MultiP2PTunnel.Part.class,
-                     new MultiP2PStateDataProvider());
+        .addServerData(MultiP2PTunnel.Part.class,
+            new MultiP2PStateDataProvider());
   }
 }

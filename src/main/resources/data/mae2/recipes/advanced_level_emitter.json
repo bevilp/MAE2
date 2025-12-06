@@ -1,0 +1,19 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        " L ",
+        "LPL",
+        " L "
+    ],
+    "key": {
+        "L": {
+            "item": "ae2:level_emitter"
+        },
+        "P": {
+            "item": "ae2:logic_processor"
+        }
+    },
+    "result": {
+        "item": "mae2:advanced_level_emitter"
+    }
+}

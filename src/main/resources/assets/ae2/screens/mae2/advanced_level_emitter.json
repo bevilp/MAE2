@@ -1,0 +1,27 @@
+{
+  "$schema": "../../../ae2/screens/schema.json",
+  "includes": ["../../../ae2/screens/common/common.json", "../../../ae2/screens/common/player_inventory.json"],
+  "background": {
+    "texture": "mae2:textures/guis/advanced_level_emitter.png",
+    "srcRect": [0, 0, 176, 184]
+  },
+  "text": {
+    "dialog_title": {
+      "text": {
+        "translate": "gui.mae2.advanced_level_emitter"
+      },
+      "position": {
+        "left": 8,
+        "top": 6
+      }
+    }
+  },
+  "widgets": {
+    "expressionField": {
+      "left": 23,
+      "top": 42,
+      "width": 130,
+      "height": 12
+    }
+  }
+}

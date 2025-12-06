@@ -34,7 +34,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import stone.mae2.MAE2;
 import stone.mae2.item.faulty.FaultyMemoryCardItem;
+import stone.mae2.parts.automation.AdvancedLevelEmitterPart;
 import stone.mae2.parts.p2p.PatternP2PTunnelPart;
+
 import stone.mae2.parts.p2p.multi.FEMultiP2PTunnel;
 import stone.mae2.parts.p2p.multi.FluidMultiP2PTunnel;
 import stone.mae2.parts.p2p.multi.ItemMultiP2PTunnel;
@@ -44,9 +46,10 @@ import stone.mae2.parts.p2p.multi.RedstoneMultiP2PTunnel;
 public abstract class MAE2Items {
 
   public static final DeferredRegister<Item> ITEMS = DeferredRegister
-    .create(ForgeRegistries.ITEMS, MAE2.MODID);
+      .create(ForgeRegistries.ITEMS, MAE2.MODID);
 
   public static RegistryObject<PartItem<PatternP2PTunnelPart>> PATTERN_P2P_TUNNEL;
+  public static RegistryObject<PartItem<AdvancedLevelEmitterPart>> ADVANCED_LEVEL_EMITTER;
 
   public static RegistryObject<PartItem<PatternMultiP2PTunnel.Part>> PATTERN_MULTI_P2P_TUNNEL;
   public static RegistryObject<PartItem<RedstoneMultiP2PTunnel.Part>> REDSTONE_MULTI_P2P_TUNNEL;
@@ -76,63 +79,73 @@ public abstract class MAE2Items {
   public static void register() {
     PATTERN_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(PatternP2PTunnelPart.class));
+          .registerModels(
+              PartModelsHelper.createModels(PatternP2PTunnelPart.class));
       return ITEMS
-        .register("pattern_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            PatternP2PTunnelPart.class, PatternP2PTunnelPart::new));
+          .register("pattern_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  PatternP2PTunnelPart.class, PatternP2PTunnelPart::new));
+    });
+
+    ADVANCED_LEVEL_EMITTER = Util.make(() -> {
+      PartModels
+          .registerModels(
+              PartModelsHelper.createModels(AdvancedLevelEmitterPart.class));
+      return ITEMS
+          .register("advanced_level_emitter",
+              () -> new PartItem<>(new Item.Properties(),
+                  AdvancedLevelEmitterPart.class, AdvancedLevelEmitterPart::new));
     });
 
     PATTERN_MULTI_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(PatternMultiP2PTunnel.Part.class));
+          .registerModels(
+              PartModelsHelper.createModels(PatternMultiP2PTunnel.Part.class));
       return ITEMS
-        .register("pattern_multi_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            PatternMultiP2PTunnel.Part.class, PatternMultiP2PTunnel.Part::new));
+          .register("pattern_multi_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  PatternMultiP2PTunnel.Part.class, PatternMultiP2PTunnel.Part::new));
     });
     REDSTONE_MULTI_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(RedstoneMultiP2PTunnel.Part.class));
+          .registerModels(
+              PartModelsHelper.createModels(RedstoneMultiP2PTunnel.Part.class));
       return ITEMS
-        .register("redstone_multi_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            RedstoneMultiP2PTunnel.Part.class,
-            RedstoneMultiP2PTunnel.Part::new));
+          .register("redstone_multi_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  RedstoneMultiP2PTunnel.Part.class,
+                  RedstoneMultiP2PTunnel.Part::new));
     });
     FE_MULTI_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(FEMultiP2PTunnel.Part.class));
+          .registerModels(
+              PartModelsHelper.createModels(FEMultiP2PTunnel.Part.class));
       return ITEMS
-        .register("fe_multi_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            FEMultiP2PTunnel.Part.class, FEMultiP2PTunnel.Part::new));
+          .register("fe_multi_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  FEMultiP2PTunnel.Part.class, FEMultiP2PTunnel.Part::new));
     });
     FLUID_MULTI_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(FluidMultiP2PTunnel.Part.class));
+          .registerModels(
+              PartModelsHelper.createModels(FluidMultiP2PTunnel.Part.class));
       return ITEMS
-        .register("fluid_multi_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            FluidMultiP2PTunnel.Part.class, FluidMultiP2PTunnel.Part::new));
+          .register("fluid_multi_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  FluidMultiP2PTunnel.Part.class, FluidMultiP2PTunnel.Part::new));
     });
     ITEM_MULTI_P2P_TUNNEL = Util.make(() -> {
       PartModels
-        .registerModels(
-          PartModelsHelper.createModels(ItemMultiP2PTunnel.Part.class));
+          .registerModels(
+              PartModelsHelper.createModels(ItemMultiP2PTunnel.Part.class));
       return ITEMS
-        .register("item_multi_p2p_tunnel",
-          () -> new PartItem<>(new Item.Properties(),
-            ItemMultiP2PTunnel.Part.class, ItemMultiP2PTunnel.Part::new));
+          .register("item_multi_p2p_tunnel",
+              () -> new PartItem<>(new Item.Properties(),
+                  ItemMultiP2PTunnel.Part.class, ItemMultiP2PTunnel.Part::new));
     });
 
     FAULTY_MEMORY_CARD = ITEMS
-      .register("faulty_card", FaultyMemoryCardItem::new);
+        .register("faulty_card", FaultyMemoryCardItem::new);
   }
 
 }

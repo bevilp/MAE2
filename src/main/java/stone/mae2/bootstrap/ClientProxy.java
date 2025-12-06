@@ -24,66 +24,73 @@ import stone.mae2.item.faulty.FaultyMemoryCardItem;
 import stone.mae2.parts.p2p.multi.MultiP2PTunnel;
 
 public class ClientProxy implements Proxy {
-  private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister
-    .create(Registries.CREATIVE_MODE_TAB, MAE2.MODID);
-  public static RegistryObject<CreativeModeTab> CREATIVE_TAB;
+    private static final DeferredRegister<CreativeModeTab> TABS = DeferredRegister
+            .create(Registries.CREATIVE_MODE_TAB, MAE2.MODID);
+    public static RegistryObject<CreativeModeTab> CREATIVE_TAB;
 
-  public void init(IEventBus bus) {
-    new ServerProxy().init(bus);
-    TABS.register(bus);
-    CREATIVE_TAB = TABS
-      .register("main", () -> CreativeModeTab
-                .builder()
-                .title(Component.translatable("gui." + MAE2.MODID + ".creative_tab"))
-                .icon(() -> new ItemStack(MAE2Items.PATTERN_P2P_TUNNEL.get()))
-                .displayItems((params, output) -> {
-                    for (var entry : MAE2Items.ITEMS.getEntries()) {
-                      output.accept(entry.get());
-                    }
-                  })
-                .build());
+    public void init(IEventBus bus) {
+        new ServerProxy().init(bus);
+        TABS.register(bus);
+        CREATIVE_TAB = TABS
+                .register("main", () -> CreativeModeTab
+                        .builder()
+                        .title(Component.translatable("gui." + MAE2.MODID + ".creative_tab"))
+                        .icon(() -> new ItemStack(MAE2Items.PATTERN_P2P_TUNNEL.get()))
+                        .displayItems((params, output) -> {
+                            for (var entry : MAE2Items.ITEMS.getEntries()) {
+                                output.accept(entry.get());
+                            }
+                        })
+                        .build());
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("block/crafting/4x_accelerator_formed"),
-                       new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
-                                                                                  DynamicCraftingUnitType.ACCELERATOR_4x)));
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("block/crafting/4x_accelerator_formed"),
+                        new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
+                                DynamicCraftingUnitType.ACCELERATOR_4x)));
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("block/crafting/16x_accelerator_formed"),
-                       new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
-                                                                                  DynamicCraftingUnitType.ACCELERATOR_16x)));
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("block/crafting/16x_accelerator_formed"),
+                        new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
+                                DynamicCraftingUnitType.ACCELERATOR_16x)));
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("block/crafting/64x_accelerator_formed"),
-                       new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
-                                                                                  DynamicCraftingUnitType.ACCELERATOR_64x)));
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("block/crafting/64x_accelerator_formed"),
+                        new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
+                                DynamicCraftingUnitType.ACCELERATOR_64x)));
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("block/crafting/256x_accelerator_formed"),
-                       new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
-                                                                                  DynamicCraftingUnitType.ACCELERATOR_256x)));
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("block/crafting/256x_accelerator_formed"),
+                        new CraftingCubeModel(new DynamicCraftingCubeModelProvider(
+                                DynamicCraftingUnitType.ACCELERATOR_256x)));
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("block/cloud_chamber"), new GlassModel());
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("block/cloud_chamber"), new GlassModel());
 
-    BuiltInModelHooks
-      .addBuiltInModel(MAE2.toKey("item/faulty_card"), new FaultyCardModel());
+        BuiltInModelHooks
+                .addBuiltInModel(MAE2.toKey("item/faulty_card"), new FaultyCardModel());
 
-    PartTooltips
-      .addBody(MultiP2PTunnel.Part.class, new MultiP2PStateDataProvider());
+        PartTooltips
+                .addBody(MultiP2PTunnel.Part.class, new MultiP2PStateDataProvider());
 
-    bus.addListener((RegisterColorHandlersEvent.Item event) -> {
-        event
-          .register(FaultyMemoryCardItem::getTintColor,
-                    MAE2Items.FAULTY_MEMORY_CARD.get());
-      });
+        bus.addListener((RegisterColorHandlersEvent.Item event) -> {
+            event
+                    .register(FaultyMemoryCardItem::getTintColor,
+                            MAE2Items.FAULTY_MEMORY_CARD.get());
+        });
 
-    bus.addListener((FMLClientSetupEvent event) -> {
-        event.enqueueWork(() -> {
-            ItemBlockRenderTypes
-              .setRenderLayer(MAE2Blocks.CLOUD_CHAMBER.get(),
-                              RenderType.cutout());
-          });
-      });
-  }
+        bus.addListener((FMLClientSetupEvent event) -> {
+            event.enqueueWork(() -> {
+                ItemBlockRenderTypes
+                        .setRenderLayer(MAE2Blocks.CLOUD_CHAMBER.get(),
+                                RenderType.cutout());
+
+                // Register screen with AE2's style system
+                // This also registers with Minecraft's MenuScreens internally
+                appeng.init.client.InitScreens.register(
+                        stone.mae2.menu.AdvancedLevelEmitterMenu.TYPE,
+                        stone.mae2.client.gui.AdvancedLevelEmitterScreen::new,
+                        "/screens/mae2/advanced_level_emitter.json");
+            });
+        });
+    }
 }

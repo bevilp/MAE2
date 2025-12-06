@@ -24,5 +24,7 @@
     "item.mae2.item_multi_p2p_tunnel": "Item Multi P2P Tunnel",
     "item.mae2.redstone_multi_p2p_tunnel": "Redstone Multi P2P Tunnel",
     "item.mae2.faulty_card": "Faulty Memory Card",
+    "item.mae2.advanced_level_emitter": "Advanced Level Emitter",
+    "gui.mae2.advanced_level_emitter": "Advanced Level Emitter",
     "waila.mae2.P2POutputManyInputs": "Linked (Output Side) - %s Inputs"
 }
